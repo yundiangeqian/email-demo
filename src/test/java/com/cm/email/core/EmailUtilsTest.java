@@ -36,27 +36,28 @@ public class EmailUtilsTest {
     public void sendFullMailWithTemplate() {
         Context context = new Context();
         context.setVariable("href", "http://www.baidu.com");
+        //解析模板
         String content = templateEngine.process("email", context);
 
         Email email = new Email();
         email.setSender(env.getProperty("spring.mail.username"));
-        email.setRecipient(new String[]{"987726878@qq.com"});
-        email.setCc(new String[]{"1317955420@qq.com"});
-        email.setSubject("基于themyleaf模板的测试邮件");
-        email.setContent(content);
+        email.setRecipient(new String[]{"收件人"});
+        email.setCc(new String[]{"抄送人"});
+        email.setSubject("HTML格式的测试邮件");
+        email.setContent(content );
         email.setHtml(true);
         List<Map<String, String>> maps = new ArrayList<>();
         Map<String, String> map1 = new TreeMap<>();
-        map1.put(FileConstant.FILE_NAME, "1.png");
-        map1.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\CSDN\\linux-web部署\\1.png");
+        map1.put(FileConstant.FILE_NAME, "名称1");
+        map1.put(FileConstant.FILE_PATH, "路径1");
         maps.add(map1);
         Map<String, String> map2 = new TreeMap<>();
-        map2.put(FileConstant.FILE_NAME, "呵呵.txt");
-        map2.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\呵呵.txt");
+        map2.put(FileConstant.FILE_NAME, "名称2t");
+        map2.put(FileConstant.FILE_PATH, "路径2");
         maps.add(map2);
         Map<String, String> map3 = new TreeMap<>();
-        map3.put(FileConstant.FILE_NAME, "test-email.docx");
-        map3.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\test-email.docx");
+        map3.put(FileConstant.FILE_NAME, "名称3");
+        map3.put(FileConstant.FILE_PATH, "路径3");
         maps.add(map3);
         email.setAttachFiles(maps);
         boolean isSend = emailUtils.sendHtmlMailWithAttachment(email);
@@ -68,23 +69,23 @@ public class EmailUtilsTest {
     public void sendHtmlMailWithAttachment() {
         Email email = new Email();
         email.setSender(env.getProperty("spring.mail.username"));
-        email.setRecipient(new String[]{"987726878@qq.com"});
-        email.setCc(new String[]{"1317955420@qq.com"});
+        email.setRecipient(new String[]{"收件人"});
+        email.setCc(new String[]{"抄送人"});
         email.setSubject("HTML格式的测试邮件");
         email.setContent("<h3><a href='http://www.baidu.com'>百度一下，你就知道</a></h3>");
         email.setHtml(true);
         List<Map<String, String>> maps = new ArrayList<>();
         Map<String, String> map1 = new TreeMap<>();
-        map1.put(FileConstant.FILE_NAME, "1.png");
-        map1.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\CSDN\\linux-web部署\\1.png");
+        map1.put(FileConstant.FILE_NAME, "名称1");
+        map1.put(FileConstant.FILE_PATH, "路径1");
         maps.add(map1);
         Map<String, String> map2 = new TreeMap<>();
-        map2.put(FileConstant.FILE_NAME, "呵呵.txt");
-        map2.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\呵呵.txt");
+        map2.put(FileConstant.FILE_NAME, "名称2t");
+        map2.put(FileConstant.FILE_PATH, "路径2");
         maps.add(map2);
         Map<String, String> map3 = new TreeMap<>();
-        map3.put(FileConstant.FILE_NAME, "test-email.docx");
-        map3.put(FileConstant.FILE_PATH, "C:\\Users\\caomian\\Desktop\\test-email.docx");
+        map3.put(FileConstant.FILE_NAME, "名称3");
+        map3.put(FileConstant.FILE_PATH, "路径3");
         maps.add(map3);
         email.setAttachFiles(maps);
         boolean isSend = emailUtils.sendHtmlMailWithAttachment(email);
@@ -95,10 +96,10 @@ public class EmailUtilsTest {
     public void sendSimpleMail() {
         Email email = new Email();
         email.setSender(env.getProperty("spring.mail.username"));
-        email.setRecipient(new String[]{"987726878@qq.com"});
-        email.setCc(new String[]{"1317955420@qq.com"});
-        email.setSubject("简易邮件的测试邮件");
-        email.setContent("今天开心吗");
+        email.setRecipient(new String[]{"收件人"});
+        email.setCc(new String[]{"抄送人"});
+        email.setSubject("主题");
+        email.setContent("内容");
         boolean isSend = emailUtils.sendSimpleMail(email);
         logger.info("邮件发送：{}", isSend);
     }
